@@ -1,19 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"os/user"
+	"time"
+
 	"github.com/brzx/rpwuko/repl"
 )
 
 func main() {
-	user, err := user.Current()
-	if err != nil{
-		panic(err)
-	}
-	fmt.Printf("Hello %s! This is the rpwuko programming language!\n", user.Username)
-	fmt.Printf("Feel free to type in commands\n")
+	time.Sleep(10 * time.Second)
+	println("main start")
+	println("Hello user! This is the rpwuko programming language!")
+	println("Feel free to type in commands")
 	repl.Start(os.Stdin, os.Stdout)
 }
-	

@@ -34,4 +34,9 @@ go.work.sum
 
 *.uf2
 *.un~
+.DS_Store
+GEMINI.md
+memo.md
+start.sh
 
+.vscode
