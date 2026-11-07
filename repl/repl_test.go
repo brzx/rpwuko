@@ -28,14 +28,14 @@ func TestStartWithCR(t *testing.T) {
 }
 
 func TestStartWithLF(t *testing.T) {
-	in := strings.NewReader("let x = 5;\n")
+	in := strings.NewReader("var x = 5;\n")
 	var out bytes.Buffer
 
 	Start(in, &out)
 
 	output := out.String()
-	if !strings.Contains(output, "{Type:IDENT Literal:let}") {
-		t.Fatalf("expected token IDENT let in output, got: %q", output)
+	if !strings.Contains(output, "{Type:IDENT Literal:var}") {
+		t.Fatalf("expected token IDENT var in output, got: %q", output)
 	}
 	if !strings.Contains(output, "{Type:= Literal:=}") {
 		t.Fatalf("expected token = in output, got: %q", output)
