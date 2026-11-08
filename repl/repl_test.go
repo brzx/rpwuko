@@ -34,8 +34,11 @@ func TestStartWithLF(t *testing.T) {
 	Start(in, &out)
 
 	output := out.String()
-	if !strings.Contains(output, "{Type:IDENT Literal:var}") {
-		t.Fatalf("expected token IDENT var in output, got: %q", output)
+	if !strings.Contains(output, "{Type:VAR Literal:var}") {
+		t.Fatalf("expected token VAR var in output, got: %q", output)
+	}
+	if !strings.Contains(output, "{Type:IDENT Literal:x}") {
+		t.Fatalf("expected token IDENT x in output, got: %q", output)
 	}
 	if !strings.Contains(output, "{Type:= Literal:=}") {
 		t.Fatalf("expected token = in output, got: %q", output)
