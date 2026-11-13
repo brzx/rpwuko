@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"bytes"
+	"strings"
 
 	"github.com/brzx/rpwuko/token"
 )
@@ -34,7 +34,7 @@ func (p *Program) TokenLiteral() string {
 }
 
 func (p *Program) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
 	for _, s := range p.Statements {
 		out.WriteString(s.String())
@@ -60,9 +60,10 @@ type VarStatement struct {
 func (vs *VarStatement) statementNode()       {}
 func (vs *VarStatement) TokenLiteral() string { return vs.Token.Literal }
 func (vs *VarStatement) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
-	out.WriteString(vs.TokenLiteral() + " ")
+	out.WriteString(vs.TokenLiteral())
+	out.WriteString(" ")
 	out.WriteString(vs.Name.String())
 	out.WriteString(" = ")
 
@@ -82,9 +83,10 @@ type ReturnStatement struct {
 func (rs *ReturnStatement) statementNode()       {}
 func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }
 func (rs *ReturnStatement) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 
-	out.WriteString(rs.TokenLiteral() + " ")
+	out.WriteString(rs.TokenLiteral())
+	out.WriteString(" ")
 
 	if rs.ReturnValue != nil {
 		out.WriteString(rs.ReturnValue.String())
@@ -126,7 +128,7 @@ type PrefixExpression struct {
 func (pe *PrefixExpression) expressionNode()      {}
 func (pe *PrefixExpression) TokenLiteral() string { return pe.Token.Literal }
 func (pe *PrefixExpression) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 	out.WriteString("(")
 	out.WriteString(pe.Operator)
 	out.WriteString(pe.Right.String())
@@ -144,11 +146,22 @@ type InfixExpression struct {
 func (ie *InfixExpression) expressionNode()      {}
 func (ie *InfixExpression) TokenLiteral() string { return ie.Token.Literal }
 func (ie *InfixExpression) String() string {
-	var out bytes.Buffer
+	var out strings.Builder
 	out.WriteString("(")
 	out.WriteString(ie.Left.String())
-	out.WriteString(" " + ie.Operator + " ")
+	out.WriteString(" ")
+	out.WriteString(ie.Operator)
+	out.WriteString(" ")
 	out.WriteString(ie.Right.String())
 	out.WriteString(")")
 	return out.String()
 }
+
+type Boolean struct {
+	Token token.Token
+	Value bool
+}
+
+func (b *Boolean) expressionNode()      {}
+func (b *Boolean) TokenLiteral() string { return b.Token.Literal }
+func (b *Boolean) String() string       { return b.Token.Literal }

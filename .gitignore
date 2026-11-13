@@ -37,6 +37,9 @@ go.work.sum
 .DS_Store
 GEMINI.md
 memo.md
+rpwuko_parser_flow_analysis.md
 start.sh
 
 .vscode
+.vscode_bak
+debug_bin
